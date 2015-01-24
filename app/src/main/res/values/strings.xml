@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">_Warframe Mod Calculator</string>
+    <string name="hello_world">should probably actually make this thing, it\'s not too complex</string>
+    <string name="action_settings">Settings</string>
+
+</resources>
