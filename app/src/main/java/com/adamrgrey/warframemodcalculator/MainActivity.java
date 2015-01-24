@@ -68,41 +68,66 @@ public class MainActivity extends ActionBarActivity {
         double duplicateEfficiency = 1.0;
         double samePolarityAndFusionCoreEfficiency = 0.5;
         double unrelatedEfficiency = 0.25;
-        double r0duplicate = toRankUp / (getModEnergy(rarityValue, 0) * duplicateEfficiency);
-        double r0samePolarityCommon = toRankUp / (getModEnergy(1, 0) * samePolarityAndFusionCoreEfficiency);
-        double r0samePolarityUncommon = toRankUp / (getModEnergy(2, 0) * samePolarityAndFusionCoreEfficiency);
-        double r0samePolarityRare = toRankUp / (getModEnergy(3, 0) * samePolarityAndFusionCoreEfficiency);
-        double r0unrelatedCommon = toRankUp / (getModEnergy(1, 0) * unrelatedEfficiency);
-        double r0unrelatedUncommon = toRankUp / (getModEnergy(2, 0) * unrelatedEfficiency);
-        double r0unrelatedRare = toRankUp / (getModEnergy(3, 0) * unrelatedEfficiency);
-        double r1commonCore = toRankUp / (getCoreEnergy(1, 1) * samePolarityAndFusionCoreEfficiency);
-        double r2commonCore = toRankUp / (getCoreEnergy(1, 2) * samePolarityAndFusionCoreEfficiency);
-        double r3commonCore = toRankUp / (getCoreEnergy(1, 3) * samePolarityAndFusionCoreEfficiency);
-        double r0uncommonCore = toRankUp / (getCoreEnergy(2, 0) * samePolarityAndFusionCoreEfficiency);
-        double r5uncommonCore = toRankUp / (getCoreEnergy(2, 5) * samePolarityAndFusionCoreEfficiency);
-        double r0rareCore = toRankUp / (getCoreEnergy(3, 0) * samePolarityAndFusionCoreEfficiency);
-        double r5rareCore = toRankUp / (getCoreEnergy(3, 5) * samePolarityAndFusionCoreEfficiency);
+        long r0duplicate = (long)Math.ceil(toRankUp / (getModEnergy(rarityValue, 0) * duplicateEfficiency));
+        long r0samePolarityCommon = (long)Math.ceil(toRankUp / (getModEnergy(1, 0) * samePolarityAndFusionCoreEfficiency));
+        long r0samePolarityUncommon = (long)Math.ceil(toRankUp / (getModEnergy(2, 0) * samePolarityAndFusionCoreEfficiency));
+        long r0samePolarityRare = (long)Math.ceil(toRankUp / (getModEnergy(3, 0) * samePolarityAndFusionCoreEfficiency));
+        long r0unrelatedCommon = (long)Math.ceil(toRankUp / (getModEnergy(1, 0) * unrelatedEfficiency));
+        long r0unrelatedUncommon = (long)Math.ceil(toRankUp / (getModEnergy(2, 0) * unrelatedEfficiency));
+        long r0unrelatedRare = (long)Math.ceil(toRankUp / (getModEnergy(3, 0) * unrelatedEfficiency));
+        long r1commonCore = (long)Math.ceil(toRankUp / (getCoreEnergy(1, 1) * samePolarityAndFusionCoreEfficiency));
+        long r2commonCore = (long)Math.ceil(toRankUp / (getCoreEnergy(1, 2) * samePolarityAndFusionCoreEfficiency));
+        long r3commonCore = (long)Math.ceil(toRankUp / (getCoreEnergy(1, 3) * samePolarityAndFusionCoreEfficiency));
+        long r0uncommonCore = (long)Math.ceil(toRankUp / (getCoreEnergy(2, 0) * samePolarityAndFusionCoreEfficiency));
+        long r5uncommonCore = (long)Math.ceil(toRankUp / (getCoreEnergy(2, 5) * samePolarityAndFusionCoreEfficiency));
+        long r0rareCore = (long)Math.ceil(toRankUp / (getCoreEnergy(3, 0) * samePolarityAndFusionCoreEfficiency));
+        long r5rareCore = (long)Math.ceil(toRankUp / (getCoreEnergy(3, 5) * samePolarityAndFusionCoreEfficiency));
 
         //TODO: credits
-
+        long r0duplicateCredits = r0duplicate * getModCreditCost((int)rarityValue);
+        long r0samePolarityCommonCredits = r0samePolarityCommon * getModCreditCost(1);
+        long r0samePolarityUncommonCredits = r0samePolarityUncommon * getModCreditCost(2);
+        long r0samePolarityRareCredits = r0samePolarityRare * getModCreditCost(3);
+        long r0unrelatedCommonCredits = r0unrelatedCommon * getModCreditCost(1);
+        long r0unrelatedUncommonCredits = r0unrelatedUncommon * getModCreditCost(2);
+        long r0unrelatedRareCredits = r0unrelatedRare * getModCreditCost(3);
+        long r1commonCoreCredits = r1commonCore * getCoreCreditCost(1, 1);
+        long r2commonCoreCredits = r2commonCore * getCoreCreditCost(1, 2);
+        long r3commonCoreCredits = r3commonCore * getCoreCreditCost(1, 3);
+        long r0uncommonCoreCredits = r0uncommonCore * getCoreCreditCost(2, 0);
+        long r5uncommonCoreCredits = r5uncommonCore * getCoreCreditCost(2, 5);
+        long r0rareCoreCredits = r0rareCore * getCoreCreditCost(3, 0);
+        long r5rareCoreCredits = r5rareCore * getCoreCreditCost(3, 5);
 
         outputList = new ArrayList<>();
-        outputList.add("r0 duplicate: " + r0duplicate);
-        outputList.add("r0 same Polarity Common: " + r0samePolarityCommon);
-        outputList.add("r0 same Polarity Uncommon: " + r0samePolarityUncommon);
-        outputList.add("r0 same Polarity Rare: " + r0samePolarityRare);
-        outputList.add("r0 unrelated Common: " + r0unrelatedCommon);
-        outputList.add("r0 unrelated Uncommon: " + r0unrelatedUncommon);
-        outputList.add("r0 unrelated Rare: " + r0unrelatedRare);
-        outputList.add("r1 common Core: " + r1commonCore);
-        outputList.add("r2 common Core: " + r2commonCore);
-        outputList.add("r3 common Core: " + r3commonCore);
-        outputList.add("r0 uncommon Core: " + r0uncommonCore);
-        outputList.add("r5 uncommon Core: " + r5uncommonCore);
-        outputList.add("r0 rare Core: " + r0rareCore);
-        outputList.add("r5 rare Core: " + r5rareCore);
+        outputList.add("Energy Cost: " + toRankUp);
+        outputList.add("r0 duplicate: " + r0duplicate + "x + cr" + r0duplicateCredits);
+        outputList.add("r0 same Polarity Common: " + r0samePolarityCommon + "x + cr" + r0samePolarityCommonCredits);
+        outputList.add("r0 same Polarity Uncommon: " + r0samePolarityUncommon + "x + cr" + r0samePolarityUncommonCredits);
+        outputList.add("r0 same Polarity Rare: " + r0samePolarityRare + "x + cr" + r0samePolarityRareCredits);
+        outputList.add("r0 unrelated Common: " + r0unrelatedCommon + "x + cr" + r0unrelatedCommonCredits);
+        outputList.add("r0 unrelated Uncommon: " + r0unrelatedUncommon + "x + cr" + r0unrelatedUncommonCredits);
+        outputList.add("r0 unrelated Rare: " + r0unrelatedRare + "x + cr" + r0unrelatedRareCredits);
+        outputList.add("r1 common Core: " + r1commonCore + "x + cr" + r1commonCoreCredits);
+        outputList.add("r2 common Core: " + r2commonCore + "x + cr" + r2commonCoreCredits);
+        outputList.add("r3 common Core: " + r3commonCore + "x + cr" + r3commonCoreCredits);
+        outputList.add("r0 uncommon Core: " + r0uncommonCore + "x + cr" + r0uncommonCoreCredits);
+        outputList.add("r5 uncommon Core: " + r5uncommonCore + "x + cr" + r5uncommonCoreCredits);
+        outputList.add("r0 rare Core: " + r0rareCore + "x + cr" + r0rareCoreCredits);
+        outputList.add("r5 rare Core: " + r5rareCore + "x + cr" + r5rareCoreCredits);
 
         renderOutput();
+    }
+
+    private long getCoreCreditCost(int rarityValue,int level) {
+        return (300 * rarityValue) + level * (150 * rarityValue);
+    }
+    private long getModCreditCost(int rarityValue){
+//        //primed mods cost 1200 + (600 * level)
+//        // other mods just cost 300 * rarityValue, regardless of level
+//        return (300 * rarityValue) + (rarityValue > 3 ? (150 * rarityValue) * level: 0);
+        //...but fuck all that, I'm not displaying level != 0 for mods
+        return 300 * rarityValue;
     }
 
     /**
