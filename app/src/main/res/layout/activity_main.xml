@@ -9,16 +9,6 @@
                 tools:context=".MainActivity"
                 android:orientation="vertical">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/inputLayout"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        >
-
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
@@ -67,16 +57,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="169dp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/outputLayout"
-        >
+            />
 
         <ListView
             android:layout_width="wrap_content"
@@ -85,6 +66,5 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/inputLayout"/>
-    </LinearLayout>
 
 </LinearLayout>
