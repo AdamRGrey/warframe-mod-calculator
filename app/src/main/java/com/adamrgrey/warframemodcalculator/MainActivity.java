@@ -60,35 +60,28 @@ public class MainActivity extends ActionBarActivity {
 
     public void calculate() {
         double rarityValue = raritySpinner.getSelectedItemPosition() + 1;
-        Log.d(LogTag, "RarityValue = " + rarityValue);
         double currentRank  = startingRankPicker.getValue();
-        Log.d(LogTag, "currentRank  = " + currentRank );
-        double currentEnergy = getFusionEnergy(rarityValue, currentRank);
-        Log.d(LogTag, "currentEnergy = " + currentEnergy);
 
         double ranksDesired = targetRankPicker.getValue() - currentRank ;
-        Log.d(LogTag, "ranksDesired = " + ranksDesired);
         double toRankUp = getRequiredEnergy(rarityValue, currentRank, ranksDesired);
-        Log.d(LogTag, "toRankUp = " + toRankUp);
 
         double duplicateEfficiency = 1.0;
         double samePolarityAndFusionCoreEfficiency = 0.5;
         double unrelatedEfficiency = 0.25;
-        double r0duplicate = toRankUp / (getFusionEnergy(rarityValue, 0) * duplicateEfficiency);
-        double r0samePolarityCommon = toRankUp / (getFusionEnergy(1, 0) * samePolarityAndFusionCoreEfficiency);
-        double r0samePolarityUncommon = toRankUp / (getFusionEnergy(2, 0) * samePolarityAndFusionCoreEfficiency);
-        double r0samePolarityRare = toRankUp / (getFusionEnergy(3, 0) * samePolarityAndFusionCoreEfficiency);
-        double r0unrelatedCommon = toRankUp / (getFusionEnergy(1, 0) * unrelatedEfficiency);
-        double r0unrelatedUncommon = toRankUp / (getFusionEnergy(2, 0) * unrelatedEfficiency);
-        double r0unrelatedRare = toRankUp / (getFusionEnergy(3, 0) * unrelatedEfficiency);
-        double r1commonCore = toRankUp / (getFusionEnergy(1, 1) * samePolarityAndFusionCoreEfficiency);
-        double r2commonCore = toRankUp / (getFusionEnergy(1, 2) * samePolarityAndFusionCoreEfficiency);
-        double r3commonCore = toRankUp / (getFusionEnergy(1, 3) * samePolarityAndFusionCoreEfficiency);
-        double r0uncommonCore = toRankUp / (getFusionEnergy(2, 0) * samePolarityAndFusionCoreEfficiency);
-        double r5uncommonCore = toRankUp / (getFusionEnergy(2, 5) * samePolarityAndFusionCoreEfficiency);
-        double r0rareCore = toRankUp / (getFusionEnergy(3, 0) * samePolarityAndFusionCoreEfficiency);
-        double r5rareCore = toRankUp / (getFusionEnergy(3, 5) * samePolarityAndFusionCoreEfficiency);
-        Log.d(LogTag, "takes " + r5rareCore + " rare5's");
+        double r0duplicate = toRankUp / (getModEnergy(rarityValue, 0) * duplicateEfficiency);
+        double r0samePolarityCommon = toRankUp / (getModEnergy(1, 0) * samePolarityAndFusionCoreEfficiency);
+        double r0samePolarityUncommon = toRankUp / (getModEnergy(2, 0) * samePolarityAndFusionCoreEfficiency);
+        double r0samePolarityRare = toRankUp / (getModEnergy(3, 0) * samePolarityAndFusionCoreEfficiency);
+        double r0unrelatedCommon = toRankUp / (getModEnergy(1, 0) * unrelatedEfficiency);
+        double r0unrelatedUncommon = toRankUp / (getModEnergy(2, 0) * unrelatedEfficiency);
+        double r0unrelatedRare = toRankUp / (getModEnergy(3, 0) * unrelatedEfficiency);
+        double r1commonCore = toRankUp / (getCoreEnergy(1, 1) * samePolarityAndFusionCoreEfficiency);
+        double r2commonCore = toRankUp / (getCoreEnergy(1, 2) * samePolarityAndFusionCoreEfficiency);
+        double r3commonCore = toRankUp / (getCoreEnergy(1, 3) * samePolarityAndFusionCoreEfficiency);
+        double r0uncommonCore = toRankUp / (getCoreEnergy(2, 0) * samePolarityAndFusionCoreEfficiency);
+        double r5uncommonCore = toRankUp / (getCoreEnergy(2, 5) * samePolarityAndFusionCoreEfficiency);
+        double r0rareCore = toRankUp / (getCoreEnergy(3, 0) * samePolarityAndFusionCoreEfficiency);
+        double r5rareCore = toRankUp / (getCoreEnergy(3, 5) * samePolarityAndFusionCoreEfficiency);
 
         //TODO: credits
 
@@ -131,11 +124,31 @@ public class MainActivity extends ActionBarActivity {
     /**
      * given a mod, how much energy does it have?
      * @param rarityValue 1=common, and so on
-     * @param currentRank 0-based
+     * @param rank 0-based
      * @return fusion energy contained
      */
-    private double getFusionEnergy(double rarityValue, double currentRank) {
-        return 2 * rarityValue * (2 + currentRank );
+    private double getModEnergy(double rarityValue, double rank) {
+        return 2 * rarityValue * (2 + rank );
+    }
+
+    /**
+     * cores work differently from mods
+     * @param rarityValue - 1=common, and so on
+     * @param rank 0-based
+     * @return fusion energy contained
+     */
+    private double getCoreEnergy(double rarityValue, double rank){
+        switch ((int) rarityValue)
+        {
+            case 1:
+                return 2.6 * (rank) + 2;
+            case 2:
+                return 6 * rank + 4;
+            case 3:
+                return 10 * rank + 12;
+        }
+        Log.e(LogTag, "invalid rarity value " + rarityValue + "!");
+        throw new IllegalArgumentException("rarityValue invalid! must be 1-3, given " + rarityValue + "(which gets intcasted to " + (int)rarityValue + ")!");
     }
 
     private void renderOutput() {
