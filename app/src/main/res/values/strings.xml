@@ -4,5 +4,9 @@
     <string name="app_name">_Warframe Mod Calculator</string>
     <string name="hello_world">should probably actually make this thing, it\'s not too complex</string>
     <string name="action_settings">Settings</string>
-
+    <string-array name="rarities">
+        <item>common</item>
+        <item>uncommon</item>
+        <item>rare</item>
+    </string-array>
 </resources>

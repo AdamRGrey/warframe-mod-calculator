@@ -51,7 +51,6 @@
                 android:layout_height="wrap_content"
                 android:text="Target Rank"
                 android:id="@+id/textView2"
-                android:labelFor="@id/targetRank"
                 android:layout_weight="1"/>
 
             <NumberPicker
